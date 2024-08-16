@@ -52,6 +52,11 @@ deploy_BlockListRegistry_base_sepolia: build
 	forge verify-contract $$(cat out.txt) src/BlockListRegistry.sol:BlockListRegistry --chain base-sepolia --watch --constructor-args ${CONSTRUCTOR_ARGS}
 	@bash print_and_clean.sh
 
+deploy_BlockListRegistry_shape_sepolia: build
+	forge script script/Deploy.s.sol:DeployBlockListRegistry --evm-version paris --rpc-url shape_sepolia --ledger --sender ${SENDER} --broadcast
+	forge verify-contract $$(cat out.txt) src/BlockListRegistry.sol:BlockListRegistry --verifier blockscout --verifier-url https://explorer-sepolia.shape.network/api --watch --constructor-args ${CONSTRUCTOR_ARGS}
+	@bash print_and_clean.sh
+
 deploy_BlockListRegistry_mainnet: build
 	forge script script/Deploy.s.sol:DeployBlockListRegistry --evm-version paris --rpc-url mainnet --ledger --sender ${SENDER} --broadcast
 	forge verify-contract $$(cat out.txt) src/BlockListRegistry.sol:BlockListRegistry --chain mainnet --watch --constructor-args ${CONSTRUCTOR_ARGS}
@@ -81,6 +86,11 @@ deploy_BlockAllRegistry_arbitrum_sepolia: build
 deploy_BlockAllRegistry_base_sepolia: build
 	forge script script/Deploy.s.sol:DeployBlockAllRegistry --evm-version paris --rpc-url base_sepolia --ledger --sender ${SENDER} --broadcast
 	forge verify-contract $$(cat out.txt) src/BlockAllRegistry.sol:BlockAllRegistry --chain base-sepolia --watch
+	@bash print_and_clean.sh
+
+deploy_BlockAllRegistry_shape_sepolia: build
+	forge script script/Deploy.s.sol:DeployBlockAllRegistry --evm-version paris --rpc-url shape_sepolia --ledger --sender ${SENDER} --broadcast
+	forge verify-contract $$(cat out.txt) src/BlockAllRegistry.sol:BlockAllRegistry --verifier blockscout --verifier-url https://explorer-sepolia.shape.network/api --watch
 	@bash print_and_clean.sh
 
 deploy_BlockAllRegistry_mainnet: build
